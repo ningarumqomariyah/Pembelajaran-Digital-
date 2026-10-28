@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLearn: Ekologi & Keanekaragaman Hayati</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #2E7D32; /* Hijau Tua */
+            --secondary-color: #81C784; /* Hijau Muda */
+            --accent-color: #FFB300; /* Kuning Madu */
+            --bg-color: #F1F8E9;
+            --text-color: #333;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            background-image: url('https://www.transparenttextures.com/patterns/leaf.png');
+        }
+
+        /* --- NAVBAR --- */
+        nav {
+            background-color: var(--primary-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links button {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+
+        .nav-links button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* --- MAIN CONTAINER --- */
+        .container {
+            display: none; /* Sembunyikan semua secara default */
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- HOME SECTION --- */
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .hero h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(46, 125, 50, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #1B5E20;
+            transform: scale(1.05);
+        }
+
+        /* --- MATERI SECTION (PPT STYLE) --- */
+        .ppt-container {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .slide {
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide h2 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .slide h3 {
+            color: var(--primary-color);
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .slide p, .slide ul {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .slide ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .slide li {
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            background: #E8F5E9;
+            padding: 15px;
+            border-left: 5px solid var(--primary-color);
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .slide-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .slide-nav button {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .slide-nav button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .slide-indicator {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* --- GAME SECTION --- */
+        .game-menu-container {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .swipe-up-btn {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--white);
+            padding: 20px 40px;
+            border-radius: 50px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: 0.3s;
+            animation: bounce 2s infinite;
+        }
+
+        .swipe-up-btn i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .swipe-up-btn span {
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Bottom Sheet Game */
+        .game-sheet {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            height: 80vh;
+            background: var(--bg-color);
+            border-radius: 30px 30px 0 0;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
+            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 200;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+        }
+
+        .game-sheet.open {
+            bottom: 0;
+        }
+
+        .drag-handle {
+            width: 50px;
+            height: 5px;
+            background: #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ff5252;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 900px;
+            margin-top: 20px;
+        }
+
+        .game-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .game-card i {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .game-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .game-card a {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: var(--white);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .game-card a:hover {
+            background: var(--primary-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .nav-links button { font-size: 0.9rem; padding: 5px 8px; }
+            .logo { font-size: 1.2rem; }
+            .ppt-container { padding: 20px; }
+            .slide h2 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">
+            <i class="fa-solid fa-leaf"></i> EcoLearn
+        </div>
+        <div class="nav-links">
+            <button onclick="showSection('home')">Pendahuluan</button>
+            <button onclick="showSection('materi')">Materi</button>
+            <button onclick="showSection('game')">Game</button>
+        </div>
+    </nav>
+
+    <!-- PENDahuluan (HOME) -->
+    <section id="home" class="container active">
+        <div class="hero">
+            <h1>Jelajahi Ekologi & Keanekaragaman Hayati</h1>
+            <p>Pelajari interaksi makhluk hidup dengan lingkungannya melalui video animasi interaktif di bawah ini.</p>
+            
+            <div class="video-container">
+                <!-- GANTI LINK DI BAWAH INI DENGAN LINK VIDEO YOUTUBE ANDA -->
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?mute=1" title="Video Animasi Ekologi" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            
+            <button class="btn-primary" onclick="showSection('materi')">Mulai Belajar <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </section>
+
+    <!-- MATERI (PPT STYLE) -->
+    <section id="materi" class="container">
+        <div class="ppt-container">
+            
+            <!-- Slide 1: Pengaruh Lingkungan -->
+            <div class="slide active">
+                <h2>A. Pengaruh Lingkungan Terhadap Organisme</h2>
+                <h3>1. Lingkungan Makhluk Hidup</h3>
+                <p>Segala sesuatu di sekitar makhluk hidup yang memengaruhi kelangsungan hidupnya.</p>
+                <ul>
+                    <li><strong>Biotik:</strong> Manusia, hewan, tumbuhan, mikroorganisme.</li>
+                    <li><strong>Abiotik:</strong> Air, tanah, udara, cahaya matahari, suhu.</li>
+                </ul>
+                <div class="highlight">
+                    <p>Kerusakan lingkungan (penebangan hutan, pencemaran) dapat mengganggu keseimbangan ekosistem dan mengancam keanekaragaman hayati.</p>
+                </div>
+            </div>
+
+            <!-- Slide 2: Abiotik & Biotik -->
+            <div class="slide">
+                <h2>A. Pengaruh Lingkungan Terhadap Organisme</h2>
+                <h3>2. Lingkungan Abiotik</h3>
+                <p>Komponen tak hidup (suhu, air, kadar garam, cahaya, tanah) yang membatasi persebaran spesies. Kondisi yang tidak sesuai dapat menghambat pertumbuhan dan reproduksi.</p>
+                
+                <h3>3. Lingkungan Biotik</h3>
+                <p>Makhluk hidup lain yang membatasi persebaran spesies melalui:</p>
+                <ul>
+                    <li>Interaksi (pemangsaan, parasitisme, persaingan).</li>
+                    <li>Ketidakadaan organisme penting (misal: penyerbuk bunga).</li>
+                </ul>
+            </div>
+
+            <!-- Slide 3: Tingkatan Ekologi -->
+            <div class="slide">
+                <h2>B. Interaksi Komponen Ekosistem</h2>
+                <h3>1. Tingkatan Organisasi Kehidupan</h3>
+                <ul>
+                    <li><strong>Individu:</strong> Satu organisme tunggal (contoh: seekor harimau).</li>
+                    <li><strong>Populasi:</strong> Kumpulan individu sejenis di tempat & waktu tertentu.</li>
+                    <li><strong>Komunitas:</strong> Kumpulan berbagai populasi di satu wilayah (contoh: komunitas pohon, burung).</li>
+                    <li><strong>Bioma:</strong> Ekosistem skala besar akibat interaksi iklim & organisme.</li>
+                    <li><strong>Biosfer:</strong> Tingkatan terbesar, mencakup seluruh makhluk hidup di Bumi.</li>
+                </ul>
+            </div>
+
+            <!-- Slide 4: Aliran Energi -->
+            <div class="slide">
+                <h2>2. Aliran Energi</h2>
+                <h3>Rantai & Jaring-jaring Makanan</h3>
+                <p>Energi mengalir dari produsen ke konsumen.</p>
+                <ul>
+                    <li><strong>Rantai Makanan:</strong> Perpindahan energi secara linear (Rumput -> Herbivora -> Karnivora).</li>
+                    <li><strong>Jaring-jaring Makanan:</strong> Kumpulan rantai makanan yang saling berhubungan membentuk jaring kompleks.</li>
+                    <li><strong>Detritivor & Pengurai:</strong> Menguraikan bahan organik (bangkai, daun) menjadi mineral kembali ke tanah.</li>
+                </ul>
+            </div>
+
+            <!-- Slide 5: Daur Biogeokimia -->
+            <div class="slide">
+                <h2>3. Daur Biogeokimia</h2>
+                <h3>a. Siklus Air</h3>
+                <p>Peredaran air dari bumi ke atmosfer (evaporasi & transpirasi) lalu kembali ke bumi (presipitasi/hujan). Digerakkan oleh energi matahari.</p>
+                <h3>b. Siklus Karbon</h3>
+                <p>CO2 diserap tumbuhan (fotosintesis) -> masuk ke hewan (rantai makanan) -> kembali ke lingkungan via respirasi, kematian, dan penguraian oleh dekomposer.</p>
+                <h3>c. Siklus Nitrogen</h3>
+                <p>Gas N2 difiksasi bakteri menjadi amonia -> nitrat (diserap tumbuhan) -> masuk hewan -> kembali ke tanah (sisa organisme) -> denitrifikasi kembali ke atmosfer.</p>
+            </div>
+
+            <!-- Slide 6: Interaksi Antar Komponen -->
+            <div class="slide">
+                <h2>4. Interaksi Antar Komponen Ekosistem</h2>
+                <ul>
+                    <li><strong>Kompetisi (--):</strong> Persaingan sumber daya terbatas antar spesies berbeda.</li>
+                    <li><strong>Predasi (+-):</strong> Predator memangsa (membunuh & memakan) mangsanya.</li>
+                    <li><strong>Herbivori (+-):</strong> Organisme memakan bagian tumbuhan. Tumbuhan melindungi diri dengan duri atau bahan kimia (nikotin, tanin).</li>
+                </ul>
+            </div>
+
+            <!-- Slide 7: Simbiosis -->
+            <div class="slide">
+                <h2>4. Interaksi Antar Komponen Ekosistem</h2>
+                <h3>Simbiosis</h3>
+                <p>Hubungan erat antar individu dari dua atau lebih spesies:</p>
+                <ul>
+                    <li><strong>Parasitisme (+/-):</strong> Parasit untung, inang rugi. (Ektoparasit: kutu. Endoparasit: cacing pita).</li>
+                    <li><strong>Mutualisme (+/+):</strong> Keduanya untung. (Bakteri pengikat N dengan polong-polongan; semut dengan akasia).</li>
+                    <li><strong>Komensalisme (+/0):</strong> Satu untung, satu netral. (Teritip menempel pada paus).</li>
+                </ul>
+            </div>
+
+            <!-- Navigasi Slide -->
+            <div class="slide-nav">
+                <button id="prevBtn" onclick="changeSlide(-1)"><i class="fa-solid fa-chevron-left"></i> Sebelumnya</button>
+                <span class="slide-indicator" id="slideIndicator">1 / 7</span>
+                <button id="nextBtn" onclick="changeSlide(1)">Selanjutnya <i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- GAME SECTION -->
+    <section id="game" class="container">
+        <div class="game-menu-container">
+            <h2 style="color: var(--primary-color); margin-bottom: 10px;">Waktunya Bermain!</h2>
+            <p style="margin-bottom: 40px;">Uji pemahamanmu dengan game seru berikut ini.</p>
+            
+            <!-- Tombol Trigger Swipe Up -->
+            <div class="swipe-up-btn" onclick="toggleGameSheet()">
+                <i class="fa-solid fa-angles-up"></i>
+                <span>Geser / Klik ke Atas</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOTTOM SHEET GAMES -->
+    <div class="game-sheet" id="gameSheet">
+        <button class="close-btn" onclick="toggleGameSheet()">X</button>
+        <div class="drag-handle" onclick="toggleGameSheet()"></div>
+        <h2 style="color: var(--primary-color);">Pilih Game</h2>
+        
+        <div class="game-grid">
+            <!-- Game 1: Memorize -->
+            <div class="game-card">
+                <i class="fa-solid fa-brain"></i>
+                <h3>Memorize</h3>
+                <p>Uji daya ingatmu tentang ekosistem dan komponen biotik/abiotik.</p>
+                <a href="https://www.educaplay.com/learning-resources/31068305-memory_game.html" target="_blank">Mainkan</a>
+            </div>
+
+            <!-- Game 2: Puzzle -->
+            <div class="game-card">
+                <i class="fa-solid fa-puzzle-piece"></i>
+                <h3>Puzzle</h3>
+                <p>Susun potongan gambar siklus air dan rantai makanan.</p>
+                <a href="https://puzzel.org/id/jigsaw/play?p=-P3xJuat0gxCfdjLCvIW" target="_blank">Mainkan</a>
+            </div>
+
+            <!-- Game 3: Quiz -->
+            <div class="game-card">
+                <i class="fa-solid fa-clipboard-question"></i>
+                <h3>Quiz Materi</h3>
+                <p>Jawab pertanyaan seputar interaksi dan daur biogeokimia.</p>
+                <a href="https://wayground.com/join?gc=31550333" target="_blank">Mainkan</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // 1. Navigasi Antar Section
+        function showSection(sectionId) {
+            // Sembunyikan semua container
+            document.querySelectorAll('.container').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            // Tampilkan container yang dipilih
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Tutup game sheet jika sedang terbuka
+            document.getElementById('gameSheet').classList.remove('open');
+        }
+
+        // 2. Logika PPT (Materi)
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicator = document.getElementById('slideIndicator');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if(index === currentSlide) {
+                    slide.classList.add('active');
+                }
+            });
+
+            indicator.innerText = `${currentSlide + 1} / ${slides.length}`;
+
+            // Disable tombol jika di ujung
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if(currentSlide < 0) currentSlide = 0;
+            if(currentSlide >= slides.length) currentSlide = slides.length - 1;
+            updateSlide();
+        }
+
+        // Inisialisasi awal PPT
+        updateSlide();
+
+        // 3. Logika Swipe Up Game (Bottom Sheet)
+        function toggleGameSheet() {
+            const sheet = document.getElementById('gameSheet');
+            sheet.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
